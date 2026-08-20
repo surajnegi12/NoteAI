@@ -1,5 +1,5 @@
-
 import React, { useState } from 'react';
+import { GoogleLogin } from '@react-oauth/google';
 import { useAuth } from '../context/useAuth';
 import { useTheme } from '../context/ThemeContext';
 import ThemeToggle from './ThemeToggle';
@@ -21,7 +21,7 @@ export default function Auth() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const { login, signup } = useAuth();
+  const { login, signup, googleLogin } = useAuth();
   const { theme, mode } = useTheme();
 
   const handleSubmit = async (e) => {
@@ -36,6 +36,18 @@ export default function Auth() {
       }
     } catch (err) {
       setError(err.response?.data?.error || 'Authentication failed. Please check your credentials.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleGoogleSuccess = async (credentialResponse) => {
+    try {
+      setLoading(true);
+      setError('');
+      await googleLogin(credentialResponse.credential);
+    } catch (err) {
+      setError(err.response?.data?.error || 'Google authentication failed.');
     } finally {
       setLoading(false);
     }
@@ -58,12 +70,10 @@ export default function Auth() {
       overflowX: 'hidden',
       transition: 'background-color 0.2s ease'
     }}>
-      {/* Top Right Theme Toggle */}
       <div style={{ position: 'absolute', top: 24, right: 24 }}>
         <ThemeToggle />
       </div>
 
-      {/* App Brand Header Above Card */}
       <div style={{
         display: 'flex',
         flexDirection: 'column',
@@ -72,11 +82,7 @@ export default function Auth() {
         marginBottom: 28,
         textAlign: 'center'
       }}>
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: 12
-        }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           <div style={{
             width: 44,
             height: 44,
@@ -114,7 +120,6 @@ export default function Auth() {
         </p>
       </div>
 
-      {/* Main Authentication Card */}
       <div style={{
         display: 'flex',
         flexWrap: 'wrap',
@@ -127,7 +132,6 @@ export default function Auth() {
         boxShadow: mode === 'dark' ? '0 30px 70px -10px rgba(0, 0, 0, 0.8)' : '0 10px 40px rgba(15, 23, 42, 0.08)',
         transition: 'background-color 0.2s ease, border-color 0.2s ease'
       }}>
-        {/* Left Side: Product Showcase */}
         <div style={{
           flex: '1 1 420px',
           background: mode === 'dark'
@@ -205,7 +209,6 @@ export default function Auth() {
           </div>
         </div>
 
-        {/* Right Side: Auth Form */}
         <div style={{
           flex: '1 1 360px',
           padding: '44px 40px',
@@ -215,7 +218,7 @@ export default function Auth() {
           backgroundColor: theme.surface,
           boxSizing: 'border-box'
         }}>
-          <div style={{ marginBottom: 26 }}>
+          <div style={{ marginBottom: 20 }}>
             <h3 style={{ fontSize: 22, fontWeight: 700, color: theme.textPrimary, margin: '0 0 6px 0', letterSpacing: '-0.02em' }}>
               {isLogin ? 'Sign in to workspace' : 'Create workspace account'}
             </h3>
@@ -237,6 +240,24 @@ export default function Auth() {
               {error}
             </div>
           )}
+
+          {/* Google Sign In Button Wrapper */}
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 18 }}>
+            <GoogleLogin
+              onSuccess={handleGoogleSuccess}
+              onError={() => setError('Google Authentication Failed')}
+              theme={mode === 'dark' ? 'filled_black' : 'outline'}
+              shape="rectangular"
+              size="large"
+              width="320"
+            />
+          </div>
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 18 }}>
+            <div style={{ flex: 1, height: 1, backgroundColor: theme.cardBorder }} />
+            <span style={{ fontSize: 11, fontWeight: 600, color: theme.textSecondary, textTransform: 'uppercase' }}>Or continue with email</span>
+            <div style={{ flex: 1, height: 1, backgroundColor: theme.cardBorder }} />
+          </div>
 
           <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
             <div>
