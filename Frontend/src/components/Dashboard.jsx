@@ -638,216 +638,223 @@ export default function Dashboard() {
       position: 'relative'
     }}>
 
-      {/* --- Sticky Top Navbar --- */}
-      <header style={{
-        position: 'sticky',
-        top: 0,
-        zIndex: 100,
-        width: '100%',
-        background: isDark ? 'rgba(8, 12, 22, 0.88)' : 'rgba(255, 255, 255, 0.9)',
-        backdropFilter: 'blur(24px)',
-        WebkitBackdropFilter: 'blur(24px)',
-        borderBottom: `1px solid ${isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.07)'}`,
-        boxShadow: isDark 
-          ? '0 16px 36px -12px rgba(0, 0, 0, 0.6)' 
-          : '0 6px 24px -6px rgba(15, 23, 42, 0.06)',
-        padding: '18px 48px',
-        boxSizing: 'border-box',
+      {/* ---  Navbar --- */}
+      <header
+  className="nav-header"
+  style={{
+    position: 'sticky',
+    top: 0,
+    zIndex: 100,
+    width: '100%',
+    background: isDark ? 'rgba(8, 12, 22, 0.88)' : 'rgba(255, 255, 255, 0.9)',
+    backdropFilter: 'blur(24px)',
+    WebkitBackdropFilter: 'blur(24px)',
+    borderBottom: `1px solid ${isDark ? 'rgba(255, 255, 255, 0.08)' : 'rgba(0, 0, 0, 0.07)'}`,
+    boxShadow: isDark 
+      ? '0 16px 36px -12px rgba(0, 0, 0, 0.6)' 
+      : '0 6px 24px -6px rgba(15, 23, 42, 0.06)',
+    padding: '16px 32px',
+    boxSizing: 'border-box',
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    gap: 14
+  }}
+>
+  <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+    <div style={{
+      width: 40,
+      height: 40,
+      borderRadius: 12,
+      background: 'linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #4f46e5 100%)',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      boxShadow: '0 6px 18px rgba(99, 102, 241, 0.4)',
+      border: '1px solid rgba(255, 255, 255, 0.25)',
+      flexShrink: 0
+    }}>
+      <Sparkles size={20} color="#ffffff" />
+    </div>
+
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+        <span className="nav-brand-text" style={{ fontSize: 19, fontWeight: 800, letterSpacing: '-0.03em', color: isDark ? '#ffffff' : '#0f172a', lineHeight: 1 }}>
+          Note<span style={{ color: '#6366f1' }}>AI</span>
+        </span>
+        
+        <span className="hide-on-mobile" style={{
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: 5,
+          fontSize: 10,
+          fontWeight: 700,
+          textTransform: 'uppercase',
+          letterSpacing: '0.06em',
+          padding: '2px 7px',
+          borderRadius: 6,
+          background: isDark ? 'rgba(99, 102, 241, 0.15)' : '#e0e7ff',
+          color: '#6366f1',
+          border: `1px solid ${isDark ? 'rgba(99, 102, 241, 0.3)' : '#c7d2fe'}`
+        }}>
+          <span style={{ position: 'relative', display: 'flex', width: 5, height: 5 }}>
+            <span className="pulse-ring" style={{ position: 'absolute', inset: 0, borderRadius: '50%', backgroundColor: '#10b981' }} />
+            <span style={{ position: 'relative', width: 5, height: 5, borderRadius: '50%', backgroundColor: '#10b981' }} />
+          </span>
+          Studio
+        </span>
+      </div>
+
+      <span className="hide-on-mobile" style={{ fontSize: 11, color: isDark ? '#64748b' : '#94a3b8', fontWeight: 500 }}>
+        Gemini 3.6 Flash
+      </span>
+    </div>
+  </div>
+
+  <div className="nav-actions" style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+
+    <div style={{
+      display: 'flex',
+      alignItems: 'center',
+      background: isDark ? 'rgba(255, 255, 255, 0.04)' : '#f1f5f9',
+      borderRadius: 10,
+      padding: 3,
+      border: `1px solid ${isDark ? 'rgba(255, 255, 255, 0.08)' : '#e2e8f0'}`
+    }}>
+      <button
+        onClick={() => setViewMode('grid')}
+        title="Grid View"
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 5,
+          padding: '6px 9px',
+          borderRadius: 7,
+          border: 'none',
+          background: viewMode === 'grid' ? '#6366f1' : 'transparent',
+          color: viewMode === 'grid' ? '#ffffff' : (isDark ? '#94a3b8' : '#64748b'),
+          fontSize: 12,
+          fontWeight: 600,
+          cursor: 'pointer'
+        }}
+      >
+        <LayoutGrid size={14} />
+        <span className="hide-on-mobile">Grid</span>
+      </button>
+      <button
+        onClick={() => setViewMode('kanban')}
+        title="Kanban Board"
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 5,
+          padding: '6px 9px',
+          borderRadius: 7,
+          border: 'none',
+          background: viewMode === 'kanban' ? '#6366f1' : 'transparent',
+          color: viewMode === 'kanban' ? '#ffffff' : (isDark ? '#94a3b8' : '#64748b'),
+          fontSize: 12,
+          fontWeight: 600,
+          cursor: 'pointer'
+        }}
+      >
+        <Kanban size={14} />
+        <span className="hide-on-mobile">Board</span>
+      </button>
+    </div>
+
+    {/* Search Trigger */}
+    <button
+      onClick={() => setIsCommandOpen(true)}
+      title="Search (⌘K)"
+      style={{
         display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center'
+        alignItems: 'center',
+        gap: 8,
+        padding: '7px 12px',
+        borderRadius: 10,
+        background: isDark ? 'rgba(255, 255, 255, 0.04)' : '#f1f5f9',
+        border: `1px solid ${isDark ? 'rgba(255, 255, 255, 0.08)' : '#e2e8f0'}`,
+        color: isDark ? '#94a3b8' : '#64748b',
+        fontSize: 13,
+        fontWeight: 500,
+        cursor: 'pointer',
+        outline: 'none'
+      }}
+    >
+      <Search size={15} />
+      <span className="hide-on-mobile">Search</span>
+      <kbd className="hide-on-mobile" style={{
+        fontFamily: 'monospace',
+        fontSize: 10,
+        background: isDark ? 'rgba(255, 255, 255, 0.08)' : '#e2e8f0',
+        padding: '2px 5px',
+        borderRadius: 4,
+        color: isDark ? '#cbd5e1' : '#475569'
+      }}>⌘K</kbd>
+    </button>
+
+    <ThemeToggle />
+
+    {/* User Avatar */}
+    <div
+      title={user?.email}
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        gap: 8,
+        padding: '4px 8px 4px 4px',
+        borderRadius: 99,
+        background: isDark ? 'rgba(255, 255, 255, 0.04)' : '#ffffff',
+        border: `1px solid ${isDark ? 'rgba(255, 255, 255, 0.08)' : '#e2e8f0'}`
+      }}
+    >
+      <div style={{
+        width: 26,
+        height: 26,
+        borderRadius: '50%',
+        background: 'linear-gradient(135deg, #6366f1, #4f46e5)',
+        color: '#ffffff',
+        fontSize: 11,
+        fontWeight: 700,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexShrink: 0
       }}>
-        {/* Left Side: Brand Logo */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-          <div style={{
-            width: 46,
-            height: 46,
-            borderRadius: 14,
-            background: 'linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #4f46e5 100%)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            boxShadow: '0 6px 18px rgba(99, 102, 241, 0.4)',
-            border: '1px solid rgba(255, 255, 255, 0.25)',
-            flexShrink: 0
-          }}>
-            <Sparkles size={22} color="#ffffff" />
-          </div>
+        {user?.email ? user.email.charAt(0).toUpperCase() : 'U'}
+      </div>
+      <span className="user-email-text" style={{ fontSize: 12, fontWeight: 600, color: isDark ? '#f1f5f9' : '#1e293b', maxWidth: 120, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+        {user?.email}
+      </span>
+    </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-              <span style={{ fontSize: 20, fontWeight: 800, letterSpacing: '-0.03em', color: isDark ? '#ffffff' : '#0f172a', lineHeight: 1 }}>
-                Note<span style={{ color: '#6366f1' }}>AI</span>
-              </span>
-              
-              <span style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 6,
-                fontSize: 11,
-                fontWeight: 700,
-                textTransform: 'uppercase',
-                letterSpacing: '0.06em',
-                padding: '3px 9px',
-                borderRadius: 7,
-                background: isDark ? 'rgba(99, 102, 241, 0.15)' : '#e0e7ff',
-                color: '#6366f1',
-                border: `1px solid ${isDark ? 'rgba(99, 102, 241, 0.3)' : '#c7d2fe'}`
-              }}>
-                <span style={{ position: 'relative', display: 'flex', width: 6, height: 6 }}>
-                  <span className="pulse-ring" style={{ position: 'absolute', inset: 0, borderRadius: '50%', backgroundColor: '#10b981' }} />
-                  <span style={{ position: 'relative', width: 6, height: 6, borderRadius: '50%', backgroundColor: '#10b981' }} />
-                </span>
-                Studio Pro
-              </span>
-            </div>
-
-            <span style={{ fontSize: 12, color: isDark ? '#64748b' : '#94a3b8', fontWeight: 500 }}>
-              Gemini 3.6 Flash Active
-            </span>
-          </div>
-        </div>
-
-        {/* Right Side: Actions & View Switcher */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-          {/* View Mode Toggle */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            background: isDark ? 'rgba(255, 255, 255, 0.04)' : '#f1f5f9',
-            borderRadius: 10,
-            padding: 3,
-            border: `1px solid ${isDark ? 'rgba(255, 255, 255, 0.08)' : '#e2e8f0'}`
-          }}>
-            <button
-              onClick={() => setViewMode('grid')}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 6,
-                padding: '6px 10px',
-                borderRadius: 7,
-                border: 'none',
-                background: viewMode === 'grid' ? '#6366f1' : 'transparent',
-                color: viewMode === 'grid' ? '#ffffff' : (isDark ? '#94a3b8' : '#64748b'),
-                fontSize: 12,
-                fontWeight: 600,
-                cursor: 'pointer'
-              }}
-            >
-              <LayoutGrid size={13} />
-              <span>Grid</span>
-            </button>
-            <button
-              onClick={() => setViewMode('kanban')}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 6,
-                padding: '6px 10px',
-                borderRadius: 7,
-                border: 'none',
-                background: viewMode === 'kanban' ? '#6366f1' : 'transparent',
-                color: viewMode === 'kanban' ? '#ffffff' : (isDark ? '#94a3b8' : '#64748b'),
-                fontSize: 12,
-                fontWeight: 600,
-                cursor: 'pointer'
-              }}
-            >
-              <Kanban size={13} />
-              <span>Board</span>
-            </button>
-          </div>
-
-          <button
-            onClick={() => setIsCommandOpen(true)}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 10,
-              padding: '9px 16px',
-              borderRadius: 12,
-              background: isDark ? 'rgba(255, 255, 255, 0.04)' : '#f1f5f9',
-              border: `1px solid ${isDark ? 'rgba(255, 255, 255, 0.08)' : '#e2e8f0'}`,
-              color: isDark ? '#94a3b8' : '#64748b',
-              fontSize: 13,
-              fontWeight: 500,
-              cursor: 'pointer',
-              outline: 'none'
-            }}
-          >
-            <Search size={15} />
-            <span>Search / Actions</span>
-            <kbd style={{
-              fontFamily: 'JetBrains Mono, monospace',
-              fontSize: 11,
-              background: isDark ? 'rgba(255, 255, 255, 0.08)' : '#e2e8f0',
-              padding: '2px 6px',
-              borderRadius: 5,
-              color: isDark ? '#cbd5e1' : '#475569'
-            }}>⌘K</kbd>
-          </button>
-
-          <ThemeToggle />
-
-          {/* User Profile */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 10,
-            padding: '5px 14px 5px 6px',
-            borderRadius: 99,
-            background: isDark ? 'rgba(255, 255, 255, 0.04)' : '#ffffff',
-            border: `1px solid ${isDark ? 'rgba(255, 255, 255, 0.08)' : '#e2e8f0'}`
-          }}>
-            <div style={{
-              width: 28,
-              height: 28,
-              borderRadius: '50%',
-              background: 'linear-gradient(135deg, #6366f1, #4f46e5)',
-              color: '#ffffff',
-              fontSize: 12,
-              fontWeight: 700,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}>
-              {user?.email ? user.email.charAt(0).toUpperCase() : 'U'}
-            </div>
-            <span style={{ fontSize: 13, fontWeight: 600, color: isDark ? '#f1f5f9' : '#1e293b', maxWidth: 160, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-              {user?.email}
-            </span>
-          </div>
-
-          <button
-            onClick={logout}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 8,
-              padding: '9px 16px',
-              borderRadius: 12,
-              border: `1px solid ${isDark ? 'rgba(239, 68, 68, 0.2)' : '#fecaca'}`,
-              background: isDark ? 'rgba(255, 255, 255, 0.04)' : '#f1f5f9',
-              color: '#ef4444',
-              fontSize: 13,
-              fontWeight: 600,
-              cursor: 'pointer',
-              outline: 'none',
-              transition: 'all 0.15s ease'
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = isDark ? 'rgba(239, 68, 68, 0.12)' : '#fee2e2';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = isDark ? 'rgba(255, 255, 255, 0.04)' : '#f1f5f9';
-            }}
-          >
-            <LogOut size={15} />
-            <span>Logout</span>
-          </button>
-        </div>
-      </header>
+    <button
+      onClick={logout}
+      title="Logout"
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 6,
+        padding: '7px 12px',
+        borderRadius: 10,
+        border: `1px solid ${isDark ? 'rgba(239, 68, 68, 0.2)' : '#fecaca'}`,
+        background: isDark ? 'rgba(255, 255, 255, 0.04)' : '#f1f5f9',
+        color: '#ef4444',
+        fontSize: 12,
+        fontWeight: 600,
+        cursor: 'pointer',
+        outline: 'none',
+        transition: 'all 0.15s ease'
+      }}
+    >
+      <LogOut size={14} />
+      <span className="hide-on-mobile">Logout</span>
+    </button>
+  </div>
+</header>
 
       {/* --- Main Workspace --- */}
       <main style={{
@@ -941,7 +948,7 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* --- Note Creator --- */}
+        {/* --- Note  --- */}
         <div style={{
           background: isDark ? 'rgba(15, 23, 42, 0.7)' : '#ffffff',
           backdropFilter: 'blur(16px)',
@@ -1138,7 +1145,7 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* --- View Content: Grid vs Kanban Board --- */}
+        {/* --- View Content--- */}
         {loading ? (
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(380px, 1fr))', gap: 24 }}>
             {[1, 2, 3].map((i) => (
@@ -1152,7 +1159,6 @@ export default function Dashboard() {
         ) : (
           /* Kanban Board View */
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20, alignItems: 'flex-start' }}>
-            {/* Column 1: Pending Tasks */}
             <div style={{ background: isDark ? 'rgba(15, 23, 42, 0.4)' : '#f1f5f9', padding: 18, borderRadius: 16, border: `1px solid ${isDark ? 'rgba(255, 255, 255, 0.06)' : '#e2e8f0'}` }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontWeight: 700, fontSize: 14, marginBottom: 14, color: '#f59e0b' }}>
                 <Circle size={15} />
@@ -1163,7 +1169,6 @@ export default function Dashboard() {
               </div>
             </div>
 
-            {/* Column 2: Completed Tasks */}
             <div style={{ background: isDark ? 'rgba(15, 23, 42, 0.4)' : '#f1f5f9', padding: 18, borderRadius: 16, border: `1px solid ${isDark ? 'rgba(255, 255, 255, 0.06)' : '#e2e8f0'}` }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontWeight: 700, fontSize: 14, marginBottom: 14, color: '#10b981' }}>
                 <CheckCircle2 size={15} />
@@ -1174,7 +1179,6 @@ export default function Dashboard() {
               </div>
             </div>
 
-            {/* Column 3: Reference & Raw Notes */}
             <div style={{ background: isDark ? 'rgba(15, 23, 42, 0.4)' : '#f1f5f9', padding: 18, borderRadius: 16, border: `1px solid ${isDark ? 'rgba(255, 255, 255, 0.06)' : '#e2e8f0'}` }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontWeight: 700, fontSize: 14, marginBottom: 14, color: '#6366f1' }}>
                 <FileText size={15} />

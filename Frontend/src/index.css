@@ -64,3 +64,25 @@ html, body, #root {
 .recording-pulse {
   animation: pulse-record 1.2s infinite ease-in-out;
 }
+@media (max-width: 768px) {
+  .nav-header {
+    padding: 12px 16px !important;
+    gap: 12px !important;
+  }
+  
+  .hide-on-mobile {
+    display: none !important;
+  }
+
+  .nav-actions {
+    gap: 8px !important;
+  }
+
+  .nav-brand-text {
+    font-size: 17px !important;
+  }
+
+  .user-email-text {
+    display: none !important;
+  }
+}

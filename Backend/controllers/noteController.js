@@ -12,7 +12,7 @@ const getNotes = async (req, res) => {
   }
 };
 
-// Create a new note (with optional AI processing)
+// Create a new note 
 const createNote = async (req, res) => {
   try {
     const { title, content, runAi } = req.body;
@@ -30,7 +30,6 @@ const createNote = async (req, res) => {
         console.log('[AI] Successfully analyzed note.');
       } catch (aiError) {
         console.error('[AI] Generation failed:', aiError.message);
-        // Note is still created without crashing if AI fails
       }
     }
 
