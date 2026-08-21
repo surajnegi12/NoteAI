@@ -106,7 +106,7 @@ export default function Auth() {
             letterSpacing: '-0.03em',
             color: theme.textPrimary
           }}>
-            Note<span style={{ color: '#6366f1' }}>AI</span> <span style={{ fontWeight: 400, opacity: 0.85 }}>Studio</span>
+            Note<span style={{ color: '#6366f1' }}>AI</span> 
           </h1>
         </div>
 
@@ -185,7 +185,7 @@ export default function Auth() {
               </div>
               <div>
                 <h4 style={{ margin: 0, fontSize: 13, fontWeight: 600, color: theme.textPrimary }}>Instant Summaries</h4>
-                <p style={{ margin: '2px 0 0', fontSize: 12, color: theme.textSecondary }}>Cuts through noise with strict response schemas</p>
+                <p style={{ margin: '2px 0 0', fontSize: 12, color: theme.textSecondary }}>Cuts through noise with strict response</p>
               </div>
             </div>
 
