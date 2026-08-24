@@ -10,7 +10,21 @@ const app = express();
 
 connectDB();
 
-app.use(cors());
+const allowedOrigins = [
+    'http://localhost:5173',
+    'https://noteai-1-wg49.onrender.com'
+  ];
+  
+  app.use(cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Blocked by CORS'));
+      }
+    },
+    credentials: true
+  }));
 app.use(express.json());
 
 app.use('/api/auth', authRoutes);
