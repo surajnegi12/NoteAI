@@ -9,22 +9,12 @@ const noteRoutes = require('./routes/noteRoutes');
 const app = express();
 
 connectDB();
-
-const allowedOrigins = [
-    'http://localhost:5173',
-    'https://noteai-1-wg49.onrender.com'
-  ];
-  
-  app.use(cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error('Blocked by CORS'));
-      }
-    },
-    credentials: true
-  }));
+app.use(cors({
+  origin: '*', 
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 app.use(express.json());
 
 app.use('/api/auth', authRoutes);
