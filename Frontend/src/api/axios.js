@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:5000/api',
+  baseURL: 'https://noteai-2dpd.onrender.com/api',
 });
 
 api.interceptors.request.use((config) => {
